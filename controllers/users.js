@@ -8,12 +8,12 @@ const {
   NotFoundError,
   EmailConflictError,
 } = require('../errors/classes');
-const messages = require('../utils/messages');
 const {
+  messages,
+  codeStatuses,
   CAST_ERR,
   VALIDATION_ERR,
   MONGO_ERR,
-  MONGO_ERR_CODE,
 } = require('../utils/constants');
 
 module.exports.createUser = (req, res, next) => {
@@ -31,7 +31,7 @@ module.exports.createUser = (req, res, next) => {
     .catch((err) => {
       if (err.name === VALIDATION_ERR) {
         throw new IncorrectDataError(messages.incorrectProfileDataCreate);
-      } else if (err.name === MONGO_ERR && err.code === MONGO_ERR_CODE) {
+      } else if (err.name === MONGO_ERR && err.code === codeStatuses.mongoErr) {
         throw new EmailConflictError(messages.alreadyExistingEmail);
       } else {
         next(err);

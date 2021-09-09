@@ -6,7 +6,7 @@ const { createUser, login, logout } = require('../controllers/users');
 const auth = require('../middlewares/auth');
 
 const { NotFoundError } = require('../errors/classes');
-const messages = require('../utils/messages');
+const messages = require('../utils/constants');
 
 router.post('/signup', createUser);
 router.post('/signin', login);

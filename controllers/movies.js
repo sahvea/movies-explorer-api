@@ -4,8 +4,7 @@ const {
   NotFoundError,
   ForbiddenError,
 } = require('../errors/classes');
-const messages = require('../utils/messages');
-const { CAST_ERR, VALIDATION_ERR } = require('../utils/constants');
+const { messages, CAST_ERR, VALIDATION_ERR } = require('../utils/constants');
 
 module.exports.getMovies = (req, res, next) => {
   Movie.find({})
