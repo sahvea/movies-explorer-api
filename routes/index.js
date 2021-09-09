@@ -2,9 +2,17 @@ const router = require('express').Router();
 
 const usersRoutes = require('./users');
 const moviesRoutes = require('./movies');
+const { createUser, login, logout } = require('./users');
+const auth = require('../middlewares/auth');
 
 const { NotFoundError } = require('../errors/classes');
 const messages = require('../utils/messages');
+
+router.post('/signup', createUser);
+router.post('/signin', login);
+router.delete('/signout', logout);
+
+router.use(auth);
 
 router.use('/users', usersRoutes);
 router.use('/movies', moviesRoutes);

@@ -1,8 +1,10 @@
 const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
 
 const User = require('../models/user');
 const {
   IncorrectDataError,
+  AuthorizationError,
   NotFoundError,
   EmailConflictError,
 } = require('../errors/classes');
@@ -83,4 +85,33 @@ module.exports.updateUser = (req, res, next) => {
       }
     })
     .catch(next);
+};
+
+module.exports.login = (req, res, next) => {
+  const { email, password } = req.body;
+
+  return User.findUserByCredentials(email, password)
+    .then((user) => {
+      const token = jwt.sign(
+        { _id: user._id },
+        'super-strong-secret',
+        { expiresIn: '7d' },
+      );
+
+      return res.cookie('jwt', token, {
+        maxAge: 3600000 * 24 * 7,
+        httpOnly: true,
+        sameSite: 'None',
+        secure: true,
+      })
+        .send({ message: messages.successfulLogin });
+    })
+    .catch((err) => next(new AuthorizationError(`${messages.authError}: ${err.message}`)));
+};
+
+module.exports.logout = (req, res, next) => {
+  res.clearCookie('jwt')
+    .send({ message: messages.successfulLogout });
+
+  next();
 };
