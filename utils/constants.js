@@ -3,8 +3,13 @@ const VALIDATION_ERR = 'ValidationError';
 const MONGO_ERR = 'MongoError';
 
 const codeStatuses = {
-  mongoErr: 11000,
+  badRequestErr: 400,
+  unauthorizedErr: 401,
+  forbiddenErr: 403,
+  notFoundErr: 404,
+  conflictErr: 409,
   internalServerErr: 500,
+  mongoErr: 11000,
 };
 
 const messages = {
