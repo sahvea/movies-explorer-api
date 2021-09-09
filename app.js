@@ -1,5 +1,6 @@
 const express = require('express');
 const mongoose = require('mongoose');
+const bodyParser = require('body-parser');
 
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 const appRouter = require('./routes/index');
@@ -14,6 +15,7 @@ mongoose.connect('mongodb://localhost:27017/moviesexpldb', {
   useUnifiedTopology: true,
 });
 
+app.use(bodyParser.json());
 app.use(requestLogger);
 
 app.use(appRouter);
