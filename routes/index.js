@@ -6,10 +6,11 @@ const { createUser, login, logout } = require('../controllers/users');
 const auth = require('../middlewares/auth');
 
 const { NotFoundError } = require('../errors/classes');
+const { validateUserBody, validateUserEntranceData } = require('../middlewares/validation');
 const messages = require('../utils/constants');
 
-router.post('/signup', createUser);
-router.post('/signin', login);
+router.post('/signup', validateUserBody, createUser);
+router.post('/signin', validateUserEntranceData, login);
 router.delete('/signout', logout);
 
 router.use(auth);
