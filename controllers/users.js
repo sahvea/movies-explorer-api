@@ -2,12 +2,10 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
 const User = require('../models/user');
-const {
-  IncorrectDataError,
-  AuthorizationError,
-  NotFoundError,
-  EmailConflictError,
-} = require('../errors/classes');
+const IncorrectDataError = require('../errors/incorrect-data-err'); // 400
+const AuthorizationError = require('../errors/authorization-err'); // 401
+const NotFoundError = require('../errors/not-found-err'); // 404
+const EmailConflictError = require('../errors/email-conflict-err'); // 409
 const {
   messages,
   codeStatuses,
@@ -108,7 +106,10 @@ module.exports.login = (req, res, next) => {
       })
         .send({ message: messages.successfulLogin });
     })
-    .catch((err) => next(new AuthorizationError(`${messages.authError}: ${err.message}`)));
+    .catch((err) => {
+      throw new AuthorizationError(`${messages.authError}: ${err.message}`);
+    })
+    .catch(next);
 };
 
 module.exports.logout = (req, res, next) => {

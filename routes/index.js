@@ -5,7 +5,7 @@ const moviesRoutes = require('./movies');
 const { createUser, login, logout } = require('../controllers/users');
 const auth = require('../middlewares/auth');
 
-const { NotFoundError } = require('../errors/classes');
+const NotFoundError = require('../errors/not-found-err'); // 404
 const { validateUserBody, validateUserEntranceData } = require('../middlewares/validation');
 const { messages } = require('../utils/constants');
 

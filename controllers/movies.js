@@ -1,9 +1,7 @@
 const Movie = require('../models/movie');
-const {
-  IncorrectDataError,
-  NotFoundError,
-  ForbiddenError,
-} = require('../errors/classes');
+const IncorrectDataError = require('../errors/incorrect-data-err'); // 400
+const ForbiddenError = require('../errors/forbidden-err'); // 403
+const NotFoundError = require('../errors/not-found-err'); // 404
 const { messages, CAST_ERR, VALIDATION_ERR } = require('../utils/constants');
 
 module.exports.getMovies = (req, res, next) => {
