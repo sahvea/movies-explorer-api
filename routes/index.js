@@ -18,7 +18,7 @@ router.use(auth);
 router.use('/users', usersRoutes);
 router.use('/movies', moviesRoutes);
 
-router.use('*', () => {
+router.all('*', () => {
   throw new NotFoundError(messages.notFoundError);
 });
 
