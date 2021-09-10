@@ -7,7 +7,7 @@ const auth = require('../middlewares/auth');
 
 const { NotFoundError } = require('../errors/classes');
 const { validateUserBody, validateUserEntranceData } = require('../middlewares/validation');
-const messages = require('../utils/constants');
+const { messages } = require('../utils/constants');
 
 router.post('/signup', validateUserBody, createUser);
 router.post('/signin', validateUserEntranceData, login);
