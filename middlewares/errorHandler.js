@@ -1,6 +1,6 @@
 const { messages, codeStatuses } = require('../utils/constants');
 
-module.exports = ((err, req, res, next) => {
+const errorHandler = (err, req, res, next) => {
   const { statusCode = codeStatuses.internalServerErr, message } = err;
 
   res.status(statusCode).send({
@@ -9,4 +9,6 @@ module.exports = ((err, req, res, next) => {
       : message,
   });
   next();
-});
+};
+
+module.exports = errorHandler;

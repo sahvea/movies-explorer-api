@@ -14,6 +14,9 @@ const {
   MONGO_ERR,
 } = require('../utils/constants');
 
+const COOKIE_MAX_AGE = 3600000 * 24 * 7;
+const TOKEN_EXPIRATION = '7d';
+
 module.exports.createUser = (req, res, next) => {
   const { email, password, name } = req.body;
 
@@ -95,21 +98,20 @@ module.exports.login = (req, res, next) => {
       const token = jwt.sign(
         { _id: user._id },
         'super-strong-secret',
-        { expiresIn: '7d' },
+        { expiresIn: TOKEN_EXPIRATION },
       );
 
       return res.cookie('jwt', token, {
-        maxAge: 3600000 * 24 * 7,
+        maxAge: COOKIE_MAX_AGE,
         httpOnly: true,
         sameSite: 'None',
         secure: true,
       })
         .send({ message: messages.successfulLogin });
     })
-    .catch((err) => {
-      throw new AuthorizationError(`${messages.authError}: ${err.message}`);
-    })
-    .catch(next);
+    .catch(() => {
+      next(new AuthorizationError(messages.authError));
+    });
 };
 
 module.exports.logout = (req, res, next) => {

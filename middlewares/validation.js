@@ -1,31 +1,31 @@
-const { celebrate, Joi } = require('celebrate');
+const { celebrate, Joi, CelebrateError } = require('celebrate');
+const { isURL } = require('validator');
+const { messages } = require('../utils/constants');
 
-const minLength = 2;
-const maxLength = 30;
-const minPasswordLength = 6;
-const idLength = 24;
-// eslint-disable-next-line no-useless-escape
-const urlPattern = /https?:\/\/(www\.)?[a-zA-Z\d\-.]{1,}\.[a-z]{1,6}([\/a-z0-9\-._~:?#[\]@!$&'()*+,;=]*)/;
+const MIN_LENGTH = 2;
+const MAX_LENGTH = 30;
+const MIN_PASSWORD_LENGTH = 6;
+const ID_LENGTH = 24;
 
 const validateUserBody = celebrate({
   body: Joi.object().keys({
     email: Joi.string().required().email(),
-    password: Joi.string().required().min(minPasswordLength),
-    name: Joi.string().min(minLength).max(maxLength),
+    password: Joi.string().required().min(MIN_PASSWORD_LENGTH),
+    name: Joi.string().min(MIN_LENGTH).max(MAX_LENGTH),
   }),
 });
 
 const validateUserEntranceData = celebrate({
   body: Joi.object().keys({
     email: Joi.string().required().email(),
-    password: Joi.string().required().min(minPasswordLength),
+    password: Joi.string().required().min(MIN_PASSWORD_LENGTH),
   }),
 });
 
 const validateUserUpdateData = celebrate({
   body: Joi.object().keys({
     email: Joi.string().required().email(),
-    name: Joi.string().required().min(minLength).max(maxLength),
+    name: Joi.string().required().min(MIN_LENGTH).max(MAX_LENGTH),
   }),
 });
 
@@ -36,9 +36,24 @@ const validateMovieBody = celebrate({
     duration: Joi.number().required(),
     year: Joi.string().required(),
     description: Joi.string().required(),
-    image: Joi.string().required().pattern(urlPattern),
-    trailer: Joi.string().required().pattern(urlPattern),
-    thumbnail: Joi.string().required().pattern(urlPattern),
+    image: Joi.string().required().custom((value) => {
+      if (!isURL(value)) {
+        throw new CelebrateError(messages.incorrectURL);
+      }
+      return value;
+    }),
+    trailer: Joi.string().required().custom((value) => {
+      if (!isURL(value)) {
+        throw new CelebrateError(messages.incorrectURL);
+      }
+      return value;
+    }),
+    thumbnail: Joi.string().required().custom((value) => {
+      if (!isURL(value)) {
+        throw new CelebrateError(messages.incorrectURL);
+      }
+      return value;
+    }),
     movieId: Joi.number().required(),
     nameRU: Joi.string().required(),
     nameEN: Joi.string().required(),
@@ -47,7 +62,7 @@ const validateMovieBody = celebrate({
 
 const validateMovieId = celebrate({
   params: Joi.object().keys({
-    movieId: Joi.string().required().hex().length(idLength),
+    id: Joi.string().required().hex().length(ID_LENGTH),
   }),
 });
 
