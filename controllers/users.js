@@ -80,6 +80,8 @@ module.exports.updateUser = (req, res, next) => {
         throw new IncorrectDataError(messages.incorrectProfileDataUpdate);
       } else if (err.name === CAST_ERR) {
         throw new IncorrectDataError(messages.incorrectUserId);
+      } else if (err.code === codeStatuses.mongoErr) {
+        throw new EmailConflictError(messages.alreadyExistingEmail);
       } else {
         next(err);
       }
