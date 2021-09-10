@@ -54,10 +54,10 @@ module.exports.createMovie = (req, res, next) => {
 };
 
 module.exports.deleteMovie = (req, res, next) => {
-  const { movieId } = req.params;
+  const { _id } = req.params;
   const userId = req.user._id;
 
-  Movie.findById(movieId)
+  Movie.findById(_id)
     .then((movie) => {
       if (!movie) {
         throw new NotFoundError(messages.incorrectMovieId);
