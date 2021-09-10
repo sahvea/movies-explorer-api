@@ -12,6 +12,7 @@ const {
   CAST_ERR,
   VALIDATION_ERR,
   MONGO_ERR,
+  JWT_SECRET,
 } = require('../utils/constants');
 
 const COOKIE_MAX_AGE = 3600000 * 24 * 7;
@@ -97,7 +98,7 @@ module.exports.login = (req, res, next) => {
     .then((user) => {
       const token = jwt.sign(
         { _id: user._id },
-        'super-strong-secret',
+        JWT_SECRET,
         { expiresIn: TOKEN_EXPIRATION },
       );
 

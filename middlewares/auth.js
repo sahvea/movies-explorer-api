@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken');
 
 const AuthorizationError = require('../errors/authorization-err'); // 401
-const { messages } = require('../utils/constants');
+const { messages, JWT_SECRET } = require('../utils/constants');
 
 module.exports = (req, res, next) => {
   const token = req.cookies.jwt;
@@ -12,7 +12,7 @@ module.exports = (req, res, next) => {
   }
 
   try {
-    payload = jwt.verify(token, 'super-strong-secret');
+    payload = jwt.verify(token, JWT_SECRET);
     req.user = payload;
     next();
   } catch (err) {

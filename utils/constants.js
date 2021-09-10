@@ -2,6 +2,13 @@ const CAST_ERR = 'CastError';
 const VALIDATION_ERR = 'ValidationError';
 const MONGO_ERR = 'MongoError';
 
+const {
+  NODE_ENV,
+  JWT_SECRET,
+  MONGO_URL = 'mongodb://localhost:27017/moviesdb',
+  PORT = 3000,
+} = process.env;
+
 const codeStatuses = {
   badRequestErr: 400,
   unauthorizedErr: 401,
@@ -35,6 +42,9 @@ module.exports = {
   CAST_ERR,
   VALIDATION_ERR,
   MONGO_ERR,
+  MONGO_URL,
+  JWT_SECRET: NODE_ENV === 'production' ? JWT_SECRET : 'super-strong-secret',
+  PORT,
   codeStatuses,
   messages,
 };
