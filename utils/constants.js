@@ -2,6 +2,9 @@ const CAST_ERR = 'CastError';
 const VALIDATION_ERR = 'ValidationError';
 const MONGO_ERR = 'MongoError';
 
+const CORS_METHODS = ['GET', 'PUT', 'POST', 'DELETE', 'PATCH', 'HEAD'];
+const CORS_HEADERS = ['Authorization', 'Content-Type', 'Accept'];
+
 const {
   NODE_ENV,
   JWT_SECRET,
@@ -47,4 +50,6 @@ module.exports = {
   PORT,
   codeStatuses,
   messages,
+  CORS_METHODS,
+  CORS_HEADERS,
 };
