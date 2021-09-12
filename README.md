@@ -5,11 +5,11 @@
 Фронтенд часть находтся в репозитории [movies-explorer-api](https://github.com/sahvea/movies-explorer-frontend).
 
 
-**Ссылки:**
+#### Ссылки:
 * Домен: https://sahvea.diploma.nomoredomains.club/
 * Поддомен для API: https://api.sahvea.diploma.nomoredomains.club/
 * Публичный IP: `62.84.113.37`
 
-**Запуск проекта:**
+#### Запуск проекта:
 `npm run start` — запускает сервер   
 `npm run dev` — запускает сервер с hot-reload
