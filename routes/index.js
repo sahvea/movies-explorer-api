@@ -11,10 +11,10 @@ const { messages } = require('../utils/constants');
 
 router.post('/signup', validateUserBody, createUser);
 router.post('/signin', validateUserEntranceData, login);
-router.delete('/signout', logout);
 
 router.use(auth);
 
+router.delete('/signout', logout);
 router.use('/users', usersRoutes);
 router.use('/movies', moviesRoutes);
 
