@@ -4,6 +4,11 @@ const MONGO_ERR = 'MongoError';
 
 const CORS_METHODS = ['GET', 'PUT', 'POST', 'DELETE', 'PATCH', 'HEAD'];
 const CORS_HEADERS = ['Authorization', 'Content-Type', 'Accept'];
+const ALLOWED_CORS = [
+  'https://sahvea.diploma.nomoredomains.club',
+  'http://localhost:3000',
+  'https://localhost:3000',
+];
 
 const {
   NODE_ENV,
@@ -39,6 +44,7 @@ const messages = {
   successfulLogout: 'Cookies успешно удалены.',
   authError: 'Ошибка аутентификации.',
   authRequired: 'Необходима авторизация.',
+  corsErr: 'Not allowed by CORS',
 };
 
 module.exports = {
@@ -52,4 +58,5 @@ module.exports = {
   messages,
   CORS_METHODS,
   CORS_HEADERS,
+  ALLOWED_CORS,
 };

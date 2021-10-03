@@ -3,7 +3,7 @@
 ### Бэкенд дипломной работы
 
 Репозиторий для проекта `movies-explorer`, включающий бэкенд приложения.
-Фронтенд часть находтся в репозитории [movies-explorer-api](https://github.com/sahvea/movies-explorer-frontend).
+Фронтенд часть находтся в репозитории [movies-explorer-frontend](https://github.com/sahvea/movies-explorer-frontend).
 
 
 #### Ссылки:
